@@ -6,3 +6,4 @@
 ## METHODS
 
 - number_to_currency(...)
+- get 'signup', to: redirect('users/new')
