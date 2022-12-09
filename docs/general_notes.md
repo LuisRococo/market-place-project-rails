@@ -7,3 +7,4 @@
 
 - number_to_currency(...)
 - get 'signup', to: redirect('users/new')
+- object.class.name.humanize.downcase -> name of class
