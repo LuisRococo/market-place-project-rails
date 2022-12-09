@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
     before_save :downcase_email
 
+    def full_name
+        "#{first_name} #{last_name}"
+    end
+
     private
 
     def downcase_email
