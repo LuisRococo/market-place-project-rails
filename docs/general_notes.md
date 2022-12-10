@@ -4,6 +4,7 @@
 - rails c --sandbox (when closing the console it will rollback all transactions)
 - rails g migration add_user_id_and_quantity_to_products user:references quantity:integer
 - rails db:reset -> drop database, create it again, and seed it
+- rails webpackcker:install:react -> install react using webpacker gem
 
 ## METHODS
 
