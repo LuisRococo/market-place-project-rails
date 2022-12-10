@@ -6,7 +6,7 @@ export default function Product() {
       <div className="card">
         <img
           className="card-img-top img-fluid"
-          src="http://placehold.it/140x100"
+          src="https://via.placeholder.com/140x100"
           alt="Card image cap"
         ></img>
         <div className="card-body">
