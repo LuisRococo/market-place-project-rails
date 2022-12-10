@@ -11,6 +11,20 @@ import "channels"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../../stylesheets/custom.css"
 
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import App from "../containers/App";
+document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById("root");
+
+    ReactDOM.render(
+        <App />,
+        root
+    )
+})
