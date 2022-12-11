@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
-  get 'users/new', to: 'users#new', as: 'new_user'
+  namespace :api do
+    namespace :v1 do
+      resources :products do 
+        resources :comments, only: [:create]
+      end
+      resources :users, only: [:create]
+      post 'signin', to: 'sessions#create'
+      delete 'signout', to: 'sessions#destroy', as: 'session'
+    end
+  end
   get 'signup', to: 'users#new'
+  get 'users/new', to: 'users#new', as: 'new_user'
   get 'signin', to: 'sessions#new'
   post 'signin', to: 'sessions#create'
   delete 'signout', to: 'sessions#destroy', as: 'session'
