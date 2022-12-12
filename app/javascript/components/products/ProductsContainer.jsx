@@ -25,12 +25,10 @@ export default class ProductsContainer extends React.Component {
   }
 
   render() {
-    const products = ["Product1", "Product2", "Product3"];
+    const products = this.state.products;
     const productList = products.map((product) => {
-      return <Product key={product} />;
+      return <Product key={product.id} product={product} />;
     });
-
-    console.log(this.state);
 
     return (
       <div className="container">

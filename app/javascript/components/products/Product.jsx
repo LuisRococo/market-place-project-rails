@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Product() {
+export default function Product({ product }) {
   return (
     <div className="col-md-4 col-sm-6 col-xs-12 mb-4">
       <div className="card">
@@ -12,19 +12,11 @@ export default function Product() {
         <div className="card-body">
           <h5 className="card-title">
             <span className="badge badge-pill badge-purple float-right">
-              $99.99
+              {product.price}
             </span>
-            <a href="detail-page.html">Name 1</a>
+            <a href="detail-page.html">{product.name}</a>
           </h5>
-          <p className="card-text">
-            Lorem ipsum dolor sit amet,consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <p className="card-text">{product.description}</p>
         </div>
       </div>
     </div>
