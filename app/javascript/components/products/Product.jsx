@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export default function Product({ product }) {
+function Product({ product }) {
   return (
     <div className="col-md-4 col-sm-6 col-xs-12 mb-4">
       <div className="card">
@@ -22,3 +23,9 @@ export default function Product({ product }) {
     </div>
   );
 }
+
+Product.PropTypes = {
+  product: PropTypes.object.isRequired,
+};
+
+export default Product;
