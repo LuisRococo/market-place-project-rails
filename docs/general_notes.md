@@ -30,3 +30,9 @@ end
 ```
 
 - On rails 6 everything wepack is integrated, on rails 5 you have to run the dev server apart from the other server.
+
+### React phases
+
+- Mounting
+- Updating
+- Unmounting
