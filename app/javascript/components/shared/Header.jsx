@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light ">
-      <a className="navbar-brand goog" href="index.html">
+      <Link className="navbar-brand goog" to="/">
         O-Sale
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -21,9 +22,9 @@ export default function Header() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a className="nav-link" href="index.html">
+            <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="new-item.html">

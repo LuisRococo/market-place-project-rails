@@ -1,18 +1,39 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-export default class ProductDetailContainer extends Component {
+class ProductDetailContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      product: {},
+    };
+  }
+
+  componentDidMount() {
+    const id = this.props.params.id;
+
+    axios
+      .get(`/api/v1/products/${id}.json`)
+      .then((response) => {
+        this.setState({ product: response.data.product });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
+    const { product } = this.state;
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-10 offset-md-1">
             <img
               className="img-fluid"
-              src="http://placehold.it/350x150"
+              src="https://via.placeholder.com/350x150"
               width="100%"
             />
           </div>
@@ -20,22 +41,16 @@ export default class ProductDetailContainer extends Component {
           <div className="col-md-10 offset-md-1">
             <div className="float-right">
               <h3>
-                <span className="badge badge-pill badge-purple">$99.99</span>
+                <span className="badge badge-pill badge-purple">
+                  {product.price}
+                </span>
               </h3>
             </div>
             <div>
-              <h3>Name 1</h3>
+              <h3>{product.name}</h3>
             </div>
 
-            <div className="mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+            <div className="mb-4">{product.description}</div>
 
             <div className="float-right btn-edit-del">
               <a href="#" className="btn btn-outline-danger btn-lg">
@@ -54,3 +69,7 @@ export default class ProductDetailContainer extends Component {
     );
   }
 }
+
+export default (props) => (
+  <ProductDetailContainer {...props} params={useParams()} />
+);

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Product({ product }) {
   return (
@@ -15,7 +16,7 @@ function Product({ product }) {
             <span className="badge badge-pill badge-purple float-right">
               {product.price}
             </span>
-            <a href="detail-page.html">{product.name}</a>
+            <Link to={`/products/${product.id}`}>{product.name}</Link>
           </h5>
           <p className="card-text">{product.description}</p>
         </div>
