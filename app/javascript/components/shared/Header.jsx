@@ -27,19 +27,19 @@ export default function Header() {
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="new-item.html">
+            <Link className="nav-link" to="/">
               New Product
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="login.html">
+            <Link className="nav-link" to="/">
               Sign In
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="register.html">
+            <Link className="nav-link" to="/">
               Sign Up
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
