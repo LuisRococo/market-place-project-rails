@@ -1,28 +1,21 @@
 import React, { Component } from "react";
 
 export default class NewProductForm extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    name: "",
+    description: "",
+    price: "",
+    quantity: "",
+    errors: {},
+  };
 
-    this.state = {
-      name: "",
-      description: "",
-      price: "",
-      quantity: "",
-      errors: {},
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-  }
+  };
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
   render() {
     const buttonText = "Create product";

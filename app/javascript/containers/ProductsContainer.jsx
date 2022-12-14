@@ -5,17 +5,13 @@ import Product from "../components/products/Product";
 import Jumbotron from "../components/products/Jumbotron";
 
 export default class ProductsContainer extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { products: [] };
 
-    this.state = { products: [] };
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     this.loadProductsFromServer();
-  }
+  };
 
-  loadProductsFromServer() {
+  loadProductsFromServer = () => {
     axios
       .get("/api/v1/products.json")
       .then((response) => {
@@ -23,7 +19,7 @@ export default class ProductsContainer extends React.Component {
         this.setState({ products });
       })
       .catch((error) => console.log(error.response.data));
-  }
+  };
 
   render() {
     const products = this.state.products;

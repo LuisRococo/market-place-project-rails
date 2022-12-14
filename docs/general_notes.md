@@ -31,7 +31,7 @@ end
 
 - On rails 6 everything wepack is integrated, on rails 5 you have to run the dev server apart from the other server.
 
-- If you want to use this inside callback methods of clases, you have to bind them on the constructor `js this.handleSubmit = this.handleSubmit.bind(this); `
+- If you want to use this inside callback methods of clases, you have to bind them on the constructor `js this.handleSubmit = this.handleSubmit.bind(this); `. You can also use instead arrow functions (instead of methods, porperties with arrow functions)
 
 ### React phases
 
