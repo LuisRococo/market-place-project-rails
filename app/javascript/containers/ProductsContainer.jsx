@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 
-import Product from "./Product";
-import Jumbotron from "./Jumbotron";
+import Product from "../components/products/Product";
+import Jumbotron from "../components/products/Jumbotron";
 
 export default class ProductsContainer extends React.Component {
   constructor(props) {

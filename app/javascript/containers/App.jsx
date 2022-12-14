@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Jumbotron from "../components/products/Jumbotron";
-import ProductsContainer from "../components/products/ProductsContainer";
+import ProductsContainer from "./ProductsContainer";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import ProductDetailContainer from "./ProductDetailContainer";
+import NewProductForm from "../components/products/NewProductForm";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ProductsContainer />} />
         <Route path="/products/:id" element={<ProductDetailContainer />} />
+        <Route path="/newProduct" element={<NewProductForm />} />
         <Route
           path="*"
           element={
