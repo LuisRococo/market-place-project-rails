@@ -5,6 +5,7 @@ import Jumbotron from "../components/products/Jumbotron";
 import ProductsContainer from "../components/products/ProductsContainer";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
+import ProductDetailContainer from "./ProductDetailContainer";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
+          <Route path="/detail" element={<ProductDetailContainer />} />
           <Route
             path="*"
             element={
