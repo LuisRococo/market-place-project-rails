@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import Product from "./Product";
+import Jumbotron from "./Jumbotron";
 
 export default class ProductsContainer extends React.Component {
   constructor(props) {
@@ -31,15 +32,18 @@ export default class ProductsContainer extends React.Component {
     });
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 mb-2">
-            <div className="row">
-              <div className="card-deck">{productList}</div>
+      <>
+        <Jumbotron />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 mb-2">
+              <div className="row">
+                <div className="card-deck">{productList}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -13,8 +13,6 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
-          <Route path="/jumbo" element={<Jumbotron />} />
-          <Route path="/jumbo/tron" element={<Jumbotron />} />
         </Routes>
         <Footer />
       </>
