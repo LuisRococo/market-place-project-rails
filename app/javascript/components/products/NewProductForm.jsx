@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-export default class NewProductForm extends Component {
+class NewProductForm extends Component {
   state = {
     name: "",
     description: "",
@@ -11,6 +12,23 @@ export default class NewProductForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    const { name, description, price, quantity } = this.state;
+
+    const newProduct = {
+      name,
+      description,
+      price,
+      quantity,
+    };
+
+    this.props.onSubmit(newProduct);
+    this.setState({
+      name: "",
+      description: "",
+      price: "",
+      quantity: "",
+    });
   };
 
   handleChange = (event) => {
@@ -27,7 +45,7 @@ export default class NewProductForm extends Component {
           <div className="col-md-8 offset-md-2">
             <div className="card panel-div">
               <h1 className="text-center form-header-style pt-2 pb-3">
-                Add New Product
+                {title}
               </h1>
 
               <div className="form-body-style px-5 pt-4">
@@ -68,6 +86,23 @@ export default class NewProductForm extends Component {
                   </div>
 
                   <div className="form-group row">
+                    <label htmlFor="price" className="col-md-3 col-form-label">
+                      Quantity
+                    </label>
+                    <div className="col-md-9">
+                      <input
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        value={this.state.quantity}
+                        onChange={this.handleChange}
+                        className="form-control"
+                        placeholder="Item quantity"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group row">
                     <label
                       htmlFor="description"
                       className="col-md-3 col-form-label"
@@ -78,6 +113,8 @@ export default class NewProductForm extends Component {
                       <textarea
                         name="description"
                         id="description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
                         className="form-control"
                         placeholder="Item description here"
                         rows="5"
@@ -102,7 +139,7 @@ export default class NewProductForm extends Component {
                   <div className="form-group row">
                     <div className="col-md-9 offset-md-3">
                       <input
-                        type={title}
+                        type="submit"
                         className="btn btn-outline-purple"
                         value={buttonText}
                       />
@@ -117,3 +154,9 @@ export default class NewProductForm extends Component {
     );
   }
 }
+
+NewProductForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default NewProductForm;

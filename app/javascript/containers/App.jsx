@@ -16,7 +16,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
           <Route path="/products/:id" element={<ProductDetailContainer />} />
-          <Route path="/newProduct" element={<NewProductForm />} />
+
           <Route
             path="*"
             element={
