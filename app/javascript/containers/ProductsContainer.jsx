@@ -6,7 +6,7 @@ import Jumbotron from "../components/products/Jumbotron";
 import NewProductForm from "../components/products/NewProductForm";
 
 export default class ProductsContainer extends React.Component {
-  state = { products: [] };
+  state = { products: [], serverErrors: [], saved: false };
 
   componentDidMount = () => {
     this.loadProductsFromServer();
@@ -35,11 +35,19 @@ export default class ProductsContainer extends React.Component {
         // const newProducts = this.state.products.concant(response.data.product);
 
         const newProducts = [...this.state.products, response.data.product];
-        this.setState({ products: newProducts });
+        this.setState({ products: newProducts, serverErrors: [], saved: true });
       })
       .catch((error) => {
-        console.log(error);
+        const msj = error.response.data;
+        this.setState({ serverErrors: [...this.state.serverErrors, ...msj] });
       });
+  };
+
+  resetSaved = () => {
+    this.setState({
+      saved: false,
+      serverErrors: [],
+    });
   };
 
   render() {
@@ -51,7 +59,12 @@ export default class ProductsContainer extends React.Component {
     return (
       <>
         <Jumbotron />
-        <NewProductForm onSubmit={this.handleProductSubmit} />
+        <NewProductForm
+          onSubmit={this.handleProductSubmit}
+          serverErrors={this.state.serverErrors}
+          saved={this.state.saved}
+          onResetSaved={this.resetSaved}
+        />
         <div className="container">
           <div className="row">
             <div className="col-md-12 mb-2">
