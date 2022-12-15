@@ -11,6 +11,18 @@ class NewProductForm extends Component {
     errors: {},
   };
 
+  componentDidUpdate = () => {
+    if (this.props.saved) {
+      this.setState({
+        name: "",
+        description: "",
+        price: "",
+        quantity: "",
+      });
+      this.props.onResetSaved();
+    }
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
 
