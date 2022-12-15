@@ -36,12 +36,6 @@ class NewProductForm extends Component {
     };
 
     this.props.onSubmit(newProduct);
-    this.setState({
-      name: "",
-      description: "",
-      price: "",
-      quantity: "",
-    });
   };
 
   handleChange = (event) => {

@@ -12,6 +12,13 @@ export default class ProductsContainer extends React.Component {
     this.loadProductsFromServer();
   };
 
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (this.state.serverErrors.length !== nextState.serverErrors.length) {
+      return true;
+    }
+    return false;
+  };
+
   loadProductsFromServer = () => {
     axios
       .get("/api/v1/products.json")
@@ -38,8 +45,14 @@ export default class ProductsContainer extends React.Component {
         this.setState({ products: newProducts, serverErrors: [], saved: true });
       })
       .catch((error) => {
-        const msj = error.response.data;
-        this.setState({ serverErrors: [...this.state.serverErrors, ...msj] });
+        const msjs = error.response.data;
+        let currentErrors = [...this.state.serverErrors];
+        msjs.forEach((msj) => {
+          if (!currentErrors.includes(msj)) {
+            currentErrors = [...currentErrors, msj];
+          }
+        });
+        this.setState({ serverErrors: currentErrors });
       });
   };
 
