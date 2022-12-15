@@ -26,16 +26,34 @@ class NewProductForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const { name, description, price, quantity } = this.state;
+    const fieldNames = ["name", "description", "price", "quantity"];
+    this.verifyAndSetFieldErrors(fieldNames);
 
-    const newProduct = {
-      name,
-      description,
-      price,
-      quantity,
-    };
+    if (Object.keys(this.state.errors).length === 0) {
+      const { name, description, price, quantity } = this.state;
 
-    this.props.onSubmit(newProduct);
+      const newProduct = {
+        name,
+        description,
+        price,
+        quantity,
+      };
+
+      this.props.onSubmit(newProduct);
+    }
+  };
+
+  verifyAndSetFieldErrors = (fieldNames) => {
+    let errors = {};
+
+    fieldNames.forEach((fieldName) => {
+      const fieldError = this.checkErrors(this.state, fieldName);
+      errors = Object.assign({}, errors, fieldError);
+    });
+
+    if (Object.keys(errors).length > 0) {
+      this.setState({ errors });
+    }
   };
 
   handleChange = (event) => {

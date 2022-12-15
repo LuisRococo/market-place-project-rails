@@ -12,12 +12,15 @@ export default class ProductsContainer extends React.Component {
     this.loadProductsFromServer();
   };
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    if (this.state.serverErrors.length !== nextState.serverErrors.length) {
-      return true;
-    }
-    return false;
-  };
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   if (
+  //     this.state.serverErrors.length > 0 &&
+  //     this.state.serverErrors.length !== nextState.serverErrors.length
+  //   ) {
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   loadProductsFromServer = () => {
     axios
