@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import { inputClasses } from "../shared/helpers";
 class NewProductForm extends Component {
   state = {
     name: "",
@@ -35,6 +35,48 @@ class NewProductForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  checkErrors = (state, fieldname) => {
+    const error = {};
+
+    switch (fieldname) {
+      case "name":
+        if (!state.name) {
+          error.name = "Please provide a name";
+        }
+        break;
+      case "description":
+        if (!state.description) {
+          error.description = "Please provide a description";
+        }
+        break;
+      case "price":
+        if (
+          parseFloat(state.price) <= 0.0 ||
+          !state.price.toString().match(/^\d{1,}(\.\d{0,2})?$/)
+        ) {
+          error.price = "Price has to be a positive number";
+        }
+        break;
+      case "quantity":
+        if (
+          parseInt(state.quantity, 10) <= 0 ||
+          !state.quantity.toString().match(/^\d{1,}$/)
+        ) {
+          error.quantity = "Quantity has to be a positive number";
+        }
+        break;
+    }
+
+    return error;
+  };
+
+  handleBlur = (event) => {
+    const { name } = event.target;
+    const fieldError = this.checkErrors(this.state, name);
+    const errors = Object.assign({}, this.state.errors, fieldError);
+    this.setState({ errors });
+  };
+
   render() {
     const buttonText = "Create product";
     const title = "Add new product";
@@ -61,10 +103,16 @@ class NewProductForm extends Component {
                         id="name"
                         value={this.state.name}
                         onChange={this.handleChange}
-                        className="form-control"
+                        className={inputClasses("name", this.state)}
                         placeholder="Item name"
                         autoFocus={true}
+                        onBlur={this.handleBlur}
                       />
+                      {this.state.errors.name ? (
+                        <div className="invalid-feedback">
+                          {this.state.errors.name}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
@@ -79,14 +127,23 @@ class NewProductForm extends Component {
                         id="price"
                         value={this.state.price}
                         onChange={this.handleChange}
-                        className="form-control"
+                        className={inputClasses("price", this.state)}
                         placeholder="Item price"
+                        onBlur={this.handleBlur}
                       />
+                      {this.state.errors.price ? (
+                        <div className="invalid-feedback">
+                          {this.state.errors.price}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
                   <div className="form-group row">
-                    <label htmlFor="price" className="col-md-3 col-form-label">
+                    <label
+                      htmlFor="quantity"
+                      className="col-md-3 col-form-label"
+                    >
                       Quantity
                     </label>
                     <div className="col-md-9">
@@ -96,9 +153,15 @@ class NewProductForm extends Component {
                         id="quantity"
                         value={this.state.quantity}
                         onChange={this.handleChange}
-                        className="form-control"
+                        className={inputClasses("quantity", this.state)}
                         placeholder="Item quantity"
+                        onBlur={this.handleBlur}
                       />
+                      {this.state.errors.quantity ? (
+                        <div className="invalid-feedback">
+                          {this.state.errors.quantity}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
@@ -115,10 +178,16 @@ class NewProductForm extends Component {
                         id="description"
                         value={this.state.description}
                         onChange={this.handleChange}
-                        className="form-control"
+                        className={inputClasses("description", this.state)}
                         placeholder="Item description here"
                         rows="5"
+                        onBlur={this.handleBlur}
                       ></textarea>
+                      {this.state.errors.description ? (
+                        <div className="invalid-feedback">
+                          {this.state.errors.description}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 

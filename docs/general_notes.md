@@ -19,6 +19,10 @@
 - time_ago_in_words(comment.created_at)
 - default_scope {order(created_at: :desc)}
 
+### JS
+
+- console.log(Object.assign({}, {num1: 1, num2: 2}, {num1: 1, num4: 5}))
+
 ## OTHER
 
 - Nested resources
