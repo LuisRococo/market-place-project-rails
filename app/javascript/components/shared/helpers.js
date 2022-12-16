@@ -5,3 +5,18 @@ export const inputClasses = (fieldName, state) => {
     }
     return classes;
 }
+
+export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
+export const verifyAndSetFieldErrors = (context, fieldNames) => {
+    let errors = {};
+
+    fieldNames.forEach((fieldName) => {
+      const fieldError = context.checkErrors(context.state, fieldName);
+      errors = Object.assign({}, errors, fieldError);
+    });
+
+    if (Object.keys(errors).length > 0) {
+      context.setState({ errors });
+    }
+  };

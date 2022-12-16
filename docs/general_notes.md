@@ -22,6 +22,13 @@
 ### JS
 
 - console.log(Object.assign({}, {num1: 1, num2: 2}, {num1: 1, num4: 5}))
+- run something when state has changed
+
+```js
+this.setState({ serverErrors: [], saved: true }, () => {
+  this.props.onFetchCurrentUser();
+});
+```
 
 ## OTHER
 

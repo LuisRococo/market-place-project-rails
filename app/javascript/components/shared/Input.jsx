@@ -21,7 +21,9 @@ function Input(props) {
           onBlur={props.onBlur}
         />
         {props.state.errors[props.name] ? (
-          <div className="invalid-feedback">{props.name}</div>
+          <div className="invalid-feedback">
+            {props.state.errors[props.name]}
+          </div>
         ) : null}
       </div>
     </div>

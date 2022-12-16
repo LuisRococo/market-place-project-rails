@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ErrorMessages from "../shared/ErrorMessages";
 import ProductForm from "../products/ProductForm";
+import { verifyAndSetFieldErrors } from "../shared/helpers";
 class NewProductForm extends Component {
   state = {
     name: "",
@@ -27,7 +28,7 @@ class NewProductForm extends Component {
     event.preventDefault();
 
     const fieldNames = ["name", "description", "price", "quantity"];
-    this.verifyAndSetFieldErrors(fieldNames);
+    verifyAndSetFieldErrors(this, fieldNames);
 
     if (Object.keys(this.state.errors).length === 0) {
       const { name, description, price, quantity } = this.state;
@@ -40,19 +41,6 @@ class NewProductForm extends Component {
       };
 
       this.props.onSubmit(newProduct);
-    }
-  };
-
-  verifyAndSetFieldErrors = (fieldNames) => {
-    let errors = {};
-
-    fieldNames.forEach((fieldName) => {
-      const fieldError = this.checkErrors(this.state, fieldName);
-      errors = Object.assign({}, errors, fieldError);
-    });
-
-    if (Object.keys(errors).length > 0) {
-      this.setState({ errors });
     }
   };
 

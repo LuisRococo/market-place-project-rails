@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
-export default function Header() {
+function Header({ currentUser }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light ">
       <Link className="navbar-brand goog" to="/">
@@ -37,12 +38,24 @@ export default function Header() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/register">
               Sign Up
             </Link>
           </li>
+
+          {currentUser ? (
+            <li className="nav-item mt-1">
+              <p className="navbar-text">Signed in as {currentUser.email}</p>
+            </li>
+          ) : null}
         </ul>
       </div>
     </nav>
   );
 }
+
+Header.propTypes = {
+  currentUser: PropTypes.object,
+};
+
+export default Header;

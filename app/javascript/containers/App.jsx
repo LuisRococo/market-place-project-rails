@@ -1,21 +1,54 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import axios from "axios";
 
-import Jumbotron from "../components/products/Jumbotron";
 import ProductsContainer from "./ProductsContainer";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import ProductDetailContainer from "./ProductDetailContainer";
-import NewProductForm from "../components/products/NewProductForm";
+import Signup from "./SignupFormContainer";
 
 class App extends Component {
+  state = {
+    currentUser: null,
+  };
+
+  componentDidMount = () => {
+    this.fetchCurrentUser();
+  };
+
+  fetchCurrentUser = () => {
+    axios
+      .get("/api/v1/users/get_current_user.json")
+      .then((response) => {
+        let currentUser = response.data.currentUser || null;
+        this.setCurrentUser(currentUser);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  setCurrentUser = (currentUser) => {
+    this.setState({ currentUser });
+  };
+
   render() {
     return (
       <BrowserRouter>
-        <Header />
+        <Header currentUser={this.state.currentUser} />
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
           <Route path="/products/:id" element={<ProductDetailContainer />} />
+          <Route
+            path="/register"
+            element={
+              <Signup
+                onFetchCurrentUser={this.fetchCurrentUser}
+                currentUser={this.state.currentUser}
+              />
+            }
+          />
 
           <Route
             path="*"
