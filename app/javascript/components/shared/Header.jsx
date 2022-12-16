@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-function Header({ currentUser, onSignout }) {
+function Header({ currentUser, onSignout, location, navigate }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light ">
       <Link className="navbar-brand goog" to="/">
@@ -43,7 +43,13 @@ function Header({ currentUser, onSignout }) {
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#" onClick={onSignout}>
+            <a
+              className="nav-link"
+              href="#"
+              onClick={(event) => {
+                onSignout(event, location, navigate);
+              }}
+            >
               Sign Out
             </a>
           </li>
@@ -64,4 +70,8 @@ Header.propTypes = {
   onSignout: PropTypes.func.isRequired,
 };
 
-export default Header;
+export default (props) => {
+  let location = useLocation();
+  let navigate = useNavigate();
+  return <Header location={location} navigate={navigate} {...props} />;
+};

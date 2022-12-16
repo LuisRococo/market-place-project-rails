@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({ currentUser });
   };
 
-  handleSignout = (event) => {
+  handleSignout = (event, location, navigate) => {
     event.preventDefault();
     axios
       .delete("/api/v1/signout.json")
@@ -41,6 +41,9 @@ class App extends Component {
         this.setState({
           currentUser: null,
         });
+        if (location.pathname !== "/") {
+          navigate("/");
+        }
       })
       .catch((error) => {
         console.log(error);
