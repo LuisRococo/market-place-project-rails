@@ -4,7 +4,10 @@ import Button from "../components/shared/Button";
 import SignupForm from "../components/shared/Form";
 import Input from "../components/shared/Input";
 import axios from "axios";
-import { EMAIL_REGEX } from "../components/shared/helpers";
+import {
+  EMAIL_REGEX,
+  verifyAndSetFieldErrors,
+} from "../components/shared/helpers";
 import ErrorMessages from "../components/shared/ErrorMessages";
 import { PropTypes } from "prop-types";
 
@@ -48,20 +51,22 @@ class SignupFormContainer extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const fieldNames = ["firstname", "lastname", "email", "password"];
-    const { firstname, lastname, email, password } = this.state;
 
     verifyAndSetFieldErrors(this, fieldNames);
 
-    const newUser = {
-      user: {
-        first_name: firstname,
-        last_name: lastname,
-        email,
-        password,
-      },
-    };
+    if (Object.keys(this.state.errors).length === 0) {
+      const { firstname, lastname, email, password } = this.state;
+      const newUser = {
+        user: {
+          first_name: firstname,
+          last_name: lastname,
+          email,
+          password,
+        },
+      };
 
-    this.handleSignup(newUser);
+      this.handleSignup(newUser);
+    }
   };
 
   handleSignup = (user) => {
