@@ -6,7 +6,12 @@ import Jumbotron from "../components/products/Jumbotron";
 import NewProductForm from "../components/products/NewProductForm";
 
 export default class ProductsContainer extends React.Component {
-  state = { products: [], serverErrors: [], saved: false };
+  state = {
+    products: [],
+    serverErrors: [],
+    saved: false,
+    isFormVisible: false,
+  };
 
   componentDidMount = () => {
     this.loadProductsFromServer();
@@ -59,6 +64,12 @@ export default class ProductsContainer extends React.Component {
       });
   };
 
+  handleButtonClick = () => {
+    this.setState({
+      isFormVisible: !this.isFormVisible,
+    });
+  };
+
   resetSaved = () => {
     this.setState({
       saved: false,
@@ -75,12 +86,29 @@ export default class ProductsContainer extends React.Component {
     return (
       <>
         <Jumbotron />
-        <NewProductForm
-          onSubmit={this.handleProductSubmit}
-          serverErrors={this.state.serverErrors}
-          saved={this.state.saved}
-          onResetSaved={this.resetSaved}
-        />
+
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 mb-2">
+              <button
+                className="btn btn-outline-purple btn-sm"
+                onClick={this.handleButtonClick}
+              >
+                + New Product
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {this.state.isFormVisible && (
+          <NewProductForm
+            onSubmit={this.handleProductSubmit}
+            serverErrors={this.state.serverErrors}
+            saved={this.state.saved}
+            onResetSaved={this.resetSaved}
+          />
+        )}
+
         <div className="container">
           <div className="row">
             <div className="col-md-12 mb-2">
