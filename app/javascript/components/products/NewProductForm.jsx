@@ -215,7 +215,7 @@ class NewProductForm extends Component {
                     </div>
                   </div>
 
-                  <Button buttonText={buttonText} />
+                  <Button>{buttonText}</Button>
                 </form>
               </div>
             </div>
