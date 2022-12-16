@@ -1,5 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
+import { inputClasses } from "../shared/helpers";
 
 function Input(props) {
   return (
@@ -10,7 +11,7 @@ function Input(props) {
       <div className="col-md-9">
         <input
           type={props.type}
-          name={props.id}
+          name={props.name}
           id={props.name}
           value={props.value}
           onChange={props.onChange}

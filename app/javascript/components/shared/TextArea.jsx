@@ -1,5 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
+import { inputClasses } from "../shared/helpers";
 
 function TextArea(props) {
   return (
@@ -9,7 +10,7 @@ function TextArea(props) {
       </label>
       <div className="col-md-9">
         <textarea
-          name={props.id}
+          name={props.name}
           id={props.name}
           rows={props.rows}
           value={props.value}
