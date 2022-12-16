@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { inputClasses } from "../shared/helpers";
 import ErrorMessages from "../shared/ErrorMessages";
-import Input from "../shared/Input";
-import Button from "../shared/Button";
-import TextArea from "../shared/TextArea";
+import ProductForm from "../products/ProductForm";
 class NewProductForm extends Component {
   state = {
     name: "",
@@ -151,73 +148,13 @@ class NewProductForm extends Component {
                 {title}
               </h1>
 
-              <div className="form-body-style px-5 pt-4">
-                <form className="form-horizontal" onSubmit={this.handleSubmit}>
-                  <Input
-                    title="Name"
-                    type="text"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    placeholder="Item name"
-                    autoFocus={true}
-                    state={this.state}
-                  />
-
-                  <Input
-                    title="Price"
-                    type="text"
-                    name="price"
-                    value={this.state.price}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    placeholder="Item price"
-                    autoFocus={false}
-                    state={this.state}
-                  />
-
-                  <Input
-                    title="Quantity"
-                    type="number"
-                    name="quantity"
-                    value={this.state.quantity}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    placeholder="Item quantity"
-                    autoFocus={false}
-                    state={this.state}
-                  />
-
-                  <TextArea
-                    title="Description"
-                    rows="5"
-                    name="description"
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    placeholder="Item description"
-                    autoFocus={false}
-                    state={this.state}
-                  />
-
-                  <div className="form-group row">
-                    <label htmlFor="image" className="col-md-3 col-form-label">
-                      Image
-                    </label>
-                    <div className="col-md-9">
-                      <input
-                        type="file"
-                        name="image"
-                        id="image"
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-
-                  <Button>{buttonText}</Button>
-                </form>
-              </div>
+              <ProductForm
+                onSubmit={this.handleSubmit}
+                onChange={this.handleChange}
+                onBlur={this.handleBlur}
+                state={this.state}
+                buttonText={buttonText}
+              ></ProductForm>
             </div>
           </div>
         </div>
