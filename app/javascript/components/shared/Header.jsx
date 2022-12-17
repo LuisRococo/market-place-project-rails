@@ -74,7 +74,7 @@ function Header({ currentUser, onSignout, location, navigate }) {
 
 Header.propTypes = {
   currentUser: PropTypes.object,
-  onSignout: PropTypes.func.isRequired,
+  onSignout: PropTypes.function.isRequired,
 };
 
 export default (props) => {
