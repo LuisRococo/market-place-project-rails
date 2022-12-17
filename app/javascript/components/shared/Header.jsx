@@ -3,6 +3,51 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
 function Header({ currentUser, onSignout, location, navigate }) {
+  const authLinks = currentUser && (
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <Link className="nav-link" to="/">
+          Home <span className="sr-only">(current)</span>
+        </Link>
+      </li>
+      <li className="nav-item">
+        <a
+          className="nav-link"
+          href="#"
+          onClick={(event) => {
+            onSignout(event, location, navigate);
+          }}
+        >
+          Sign Out
+        </a>
+      </li>
+
+      <li className="nav-item mt-1">
+        <p className="navbar-text">Signed in as {currentUser.email}</p>
+      </li>
+    </ul>
+  );
+
+  const unauthLinks = !currentUser && (
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <Link className="nav-link" to="/">
+          Home <span className="sr-only">(current)</span>
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
+          Sign In
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/register">
+          Sign Up
+        </Link>
+      </li>
+    </ul>
+  );
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light ">
       <Link className="navbar-brand goog" to="/">
@@ -21,45 +66,7 @@ function Header({ currentUser, onSignout, location, navigate }) {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              New Product
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Sign In
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/register">
-              Sign Up
-            </Link>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href="#"
-              onClick={(event) => {
-                onSignout(event, location, navigate);
-              }}
-            >
-              Sign Out
-            </a>
-          </li>
-
-          {currentUser ? (
-            <li className="nav-item mt-1">
-              <p className="navbar-text">Signed in as {currentUser.email}</p>
-            </li>
-          ) : null}
-        </ul>
+        {currentUser ? authLinks : unauthLinks}
       </div>
     </nav>
   );

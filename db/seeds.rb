@@ -19,6 +19,12 @@ User.create!(
             last_name: 'Doe',
             email: 'jane@example.com',
             password: 'root'
+        },
+        {
+            first_name: 'Luis',
+            last_name: 'Ro',
+            email: 'root@root.com',
+            password: 'root'
         }
     ]
 )

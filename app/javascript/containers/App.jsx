@@ -7,6 +7,7 @@ import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import ProductDetailContainer from "./ProductDetailContainer";
 import Signup from "./SignupFormContainer";
+import SigninFormContainer from "./SigninFormContainer";
 
 class App extends Component {
   state = {
@@ -64,6 +65,15 @@ class App extends Component {
             path="/register"
             element={
               <Signup
+                onFetchCurrentUser={this.fetchCurrentUser}
+                currentUser={this.state.currentUser}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <SigninFormContainer
                 onFetchCurrentUser={this.fetchCurrentUser}
                 currentUser={this.state.currentUser}
               />
