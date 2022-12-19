@@ -181,7 +181,7 @@ class SigninFormContainer extends Component {
 }
 
 SigninFormContainer.propTypes = {
-  onFetchCurrentUser: PropTypes.func.isrequired,
+  onFetchCurrentUser: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
 };
 
