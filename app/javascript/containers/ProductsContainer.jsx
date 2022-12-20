@@ -4,8 +4,10 @@ import axios from "axios";
 import Product from "../components/products/Product";
 import Jumbotron from "../components/products/Jumbotron";
 import NewProductForm from "../components/products/NewProductForm";
+import { useLocation } from "react-router-dom";
+import ErrorMessages from "../components/shared/ErrorMessages";
 
-export default class ProductsContainer extends React.Component {
+class ProductsContainer extends React.Component {
   state = {
     products: [],
     serverErrors: [],
@@ -35,6 +37,13 @@ export default class ProductsContainer extends React.Component {
         this.setState({ products });
       })
       .catch((error) => console.log(error.response.data));
+  };
+
+  componentDidUpdate = () => {
+    if (!this.state.flash && this.props.location.state) {
+      const flashMsj = this.props.location.state.error;
+      this.setState({ flash: flashMsj });
+    }
   };
 
   handleProductSubmit = (data) => {
@@ -86,6 +95,15 @@ export default class ProductsContainer extends React.Component {
     return (
       <>
         <Jumbotron />
+        {this.state.flash && (
+          <div className="row">
+            <ErrorMessages
+              errors={[this.state.flash]}
+              flash={true}
+              colWidth="col-md-12"
+            />
+          </div>
+        )}
 
         <div className="container">
           <div className="row">
@@ -122,3 +140,8 @@ export default class ProductsContainer extends React.Component {
     );
   }
 }
+
+export default () => {
+  const location = useLocation();
+  return <ProductsContainer location={location} />;
+};

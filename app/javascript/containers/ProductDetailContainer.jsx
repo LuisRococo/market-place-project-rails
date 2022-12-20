@@ -34,7 +34,9 @@ class ProductDetailContainer extends Component {
         this.setState({ product: response.data.product });
       })
       .catch((error) => {
-        this.props.navigate("/");
+        this.props.navigate("/", {
+          state: { error: error.response.data.errors },
+        });
       });
   };
 
