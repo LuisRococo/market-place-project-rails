@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 
-const ErrorMessages = ({ errors, colWidth = "col-md-8 offset-md-2" }) => {
-  return (
+const ErrorMessages = ({
+  errors,
+  colWidth = "col-md-8 offset-md-2",
+  flash,
+}) => {
+  const [toShow, setToShow] = useState(true);
+
+  useEffect(() => {
+    if (flash) {
+      setTimeout(() => {
+        setToShow(false);
+      }, 2000);
+    }
+  }, [toShow]);
+
+  const message = toShow ? (
     <div className={colWidth}>
       <div
         style={{
@@ -17,7 +31,9 @@ const ErrorMessages = ({ errors, colWidth = "col-md-8 offset-md-2" }) => {
         })}
       </div>
     </div>
-  );
+  ) : null;
+
+  return message;
 };
 
 ErrorMessages.protoTypes = {
