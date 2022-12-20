@@ -59,7 +59,7 @@ class ProductDetailContainer extends Component {
 
   render() {
     const id = this.props.params.id;
-    const { product, currentUser } = this.state;
+    const { product } = this.state;
 
     return (
       <div className="container">
@@ -86,7 +86,8 @@ class ProductDetailContainer extends Component {
 
             <div className="mb-4">{product.description}</div>
 
-            {this.isOwner(this.props.currentUser, product) ? (
+            {this.isOwner(this.props.currentUser, product) &&
+            !this.state.edited ? (
               <>
                 <div className="float-right btn-edit-del">
                   <Link
@@ -108,18 +109,20 @@ class ProductDetailContainer extends Component {
               </>
             ) : null}
           </div>
-          <Routes>
-            <Route
-              path="edit"
-              element={
-                <EditProductForm
-                  onEdit={this.editingProduct}
-                  {...this.props}
-                  onUpdate={this.setUpdated}
-                />
-              }
-            />
-          </Routes>
+          {this.isOwner(this.props.currentUser, product) ? (
+            <Routes>
+              <Route
+                path="edit"
+                element={
+                  <EditProductForm
+                    onEdit={this.editingProduct}
+                    {...this.props}
+                    onUpdate={this.setUpdated}
+                  />
+                }
+              />
+            </Routes>
+          ) : null}
         </div>
       </div>
     );
