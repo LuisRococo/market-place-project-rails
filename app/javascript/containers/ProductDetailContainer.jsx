@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import EditProductForm from "./EditProductFormContainer";
@@ -34,7 +34,7 @@ class ProductDetailContainer extends Component {
         this.setState({ product: response.data.product });
       })
       .catch((error) => {
-        console.log(error);
+        this.props.navigate("/");
       });
   };
 
@@ -133,6 +133,13 @@ ProductDetailContainer.propTypes = {
   currentUser: PropTypes.object,
 };
 
-export default (props) => (
-  <ProductDetailContainer {...props} params={useParams()} />
-);
+export default (props) => {
+  let navigate = useNavigate();
+  return (
+    <ProductDetailContainer
+      {...props}
+      params={useParams()}
+      navigate={navigate}
+    />
+  );
+};
