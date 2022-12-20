@@ -15,6 +15,22 @@ class ProductDetailContainer extends Component {
     };
   }
 
+  handleDelete = (event) => {
+    event.preventDefault();
+    this.handleProductDelete(this.props.params.id);
+  };
+
+  handleProductDelete = (id) => {
+    axios
+      .delete(`/api/v1/products/${id}.json`)
+      .then((response) => {
+        this.props.navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   componentDidMount() {
     this.getProduct();
   }
@@ -92,12 +108,13 @@ class ProductDetailContainer extends Component {
             !this.state.edited ? (
               <>
                 <div className="float-right btn-edit-del">
-                  <Link
-                    to={`/products/${id}/edit`}
+                  <a
+                    href={`/products/${id}/edit`}
                     className="btn btn-outline-danger btn-lg"
+                    onClick={this.handleDelete}
                   >
                     Delete
-                  </Link>
+                  </a>
                 </div>
 
                 <div>
