@@ -21,12 +21,10 @@ class Api::V1::ProductsController < ApplicationController
     end
 
     def update
-        if @product.update(product_params)
-            flash[:notice] = 'Product has been modified'
-            redirect_to root_path
+        unless @product.update(product_params)
+            render json: @product.errors.full_messages, status: :unprocessable_entity
         else
-            flash.now[:notice] = 'Product has not been updated'
-            render :edit
+            render :update
         end
     end
 

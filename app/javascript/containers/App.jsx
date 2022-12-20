@@ -61,7 +61,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
           <Route
-            path="/products/:id"
+            path="/products/:id/*"
             element={
               <ProductDetailContainer currentUser={this.state.currentUser} />
             }
