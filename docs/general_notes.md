@@ -49,3 +49,7 @@ end
 - Mounting
 - Updating
 - Unmounting
+
+## Higher order components
+
+By convention (you are not force to...) they start with "with"

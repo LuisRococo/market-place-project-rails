@@ -5,7 +5,7 @@ import Product from "../components/products/Product";
 import Jumbotron from "../components/products/Jumbotron";
 import NewProductForm from "../components/products/NewProductForm";
 import { useLocation } from "react-router-dom";
-import ErrorMessages from "../components/shared/ErrorMessages";
+import ErrorMessagesHOC from "../components/shared/ErrorMessagesHOC";
 
 class ProductsContainer extends React.Component {
   state = {
@@ -97,7 +97,7 @@ class ProductsContainer extends React.Component {
         <Jumbotron />
         {this.state.flash && (
           <div className="row">
-            <ErrorMessages
+            <ErrorMessagesHOC
               errors={[this.state.flash]}
               flash={true}
               colWidth="col-md-12 offset-md-1"
