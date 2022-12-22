@@ -14,8 +14,30 @@ class ProductDetailContainer extends Component {
       edited: false,
       updated: false,
       comments: [],
+      saved: false,
+      serverErrors: [],
     };
   }
+
+  resetSaved = () => {
+    this.setState({
+      saved: false,
+      serverErrors: [],
+    });
+  };
+
+  handleCommentSubmit = (data) => {
+    const id = +this.props.params.id;
+    axios
+      .post(`/api/v1/products/${id}/comments.json`, data)
+      .then((response) => {
+        const comments = [response.data.comment, ...this.state.comments];
+        this.setState({ comments });
+      })
+      .catch((error) => {
+        this.setState({ serverErrors: error.response.data });
+      });
+  };
 
   handleDelete = (event) => {
     event.preventDefault();
@@ -90,6 +112,7 @@ class ProductDetailContainer extends Component {
   render() {
     const id = this.props.params.id;
     const { product } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <div className="container">
@@ -157,7 +180,16 @@ class ProductDetailContainer extends Component {
         </div>
 
         <hr />
-        {!this.state.edited && <CommentList comments={this.state.comments} />}
+        {!this.state.edited && (
+          <CommentList
+            comments={this.state.comments}
+            onCommentSubmit={this.handleCommentSubmit}
+            serverErrors={this.state.serverErrors}
+            saved={this.state.saved}
+            onresetSaved={this.resetSaved}
+            currentUser={currentUser}
+          />
+        )}
       </div>
     );
   }
