@@ -1,5 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
+import moment from "moment";
 
 function Comment({ comment }) {
   return (
@@ -7,7 +8,9 @@ function Comment({ comment }) {
       <div className="comment-body mb-2 mt-3">{comment.body}</div>
       <small>
         <em>
-          Created <span>{comment.created_at}</span> ago by:
+          Created{" "}
+          <span>{moment(comment.created_at).startOf("minute").fromNow()}</span>{" "}
+          by:&nbsp;
         </em>
         {comment.user.full_name}
       </small>
