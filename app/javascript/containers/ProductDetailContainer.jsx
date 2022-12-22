@@ -3,6 +3,7 @@ import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import EditProductForm from "./EditProductFormContainer";
+import CommentList from "../components/comments/CommentList";
 
 class ProductDetailContainer extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class ProductDetailContainer extends Component {
       product: {},
       edited: false,
       updated: false,
+      comments: [],
     };
   }
 
@@ -32,28 +34,38 @@ class ProductDetailContainer extends Component {
   };
 
   componentDidMount() {
-    this.getProduct();
+    this.getProductAndComment();
   }
 
   componentDidUpdate = () => {
     if (this.state.edited && this.state.updated) {
-      this.getProduct();
+      this.getProductAndComment();
     }
   };
 
-  getProduct = () => {
+  getProductAndComment = () => {
     const id = this.props.params && this.props.params.id;
 
-    axios
-      .get(`/api/v1/products/${id}.json`)
-      .then((response) => {
-        this.setState({ product: response.data.product });
-      })
-      .catch((error) => {
-        this.props.navigate("/", {
-          state: { error: error.response.data.errors },
+    if (id) {
+      axios
+        .all([
+          axios.get(`/api/v1/products/${id}.json`),
+          axios.get(`/api/v1/products/${id}/comments.json`),
+        ])
+        .then(
+          axios.spread((productResponse, commentsResponse) => {
+            this.setState({
+              product: productResponse.data.product,
+              comments: commentsResponse.data.comments,
+            });
+          })
+        )
+        .catch((error) => {
+          this.props.navigate("/", {
+            state: { error: error.response.data.errors },
+          });
         });
-      });
+    }
   };
 
   setUpdated = (value) => {
@@ -143,6 +155,9 @@ class ProductDetailContainer extends Component {
             </Routes>
           ) : null}
         </div>
+
+        <hr />
+        {!this.state.edited && <CommentList comments={this.state.comments} />}
       </div>
     );
   }
